@@ -1,0 +1,28 @@
+server:
+  port: 4003
+
+spring:
+  application:
+    name: Api-Gateway
+  cloud:
+    gateway:
+      routes:
+        - id: User-Service
+          uri: lb://User-Service
+          predicates:
+            - Path=/users/**
+          
+        - id: Department-Service
+          uri: lb://Department-Service
+          predicates:
+            - Path=/departments/**
+          
+          
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true  
+    serviceUrl:
+      defaultZone: http://localhost:4000/eureka/
+  instance:
+    hostname: localhost             
